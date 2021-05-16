@@ -1,5 +1,6 @@
 #pip install csv
 #pip install fpdf
+#pip install jsons
 def CSVtoPDF(Location,Title,Title_font='Times',Title_style='B',Title_size=14,Title_border=0,Title_link=' ',
            Header=1,Header_start=0,Header_end=17,Body_align='C',end_of_report_text=' ',File_dest='F',cols=[]):
        
@@ -54,3 +55,29 @@ def CSVtoPDF(Location,Title,Title_font='Times',Title_style='B',Title_size=14,Tit
     if cols!=[]:
         import os
         os.remove('temp.csv')
+
+           
+           
+           
+           
+#############################################################################################
+
+#########################################################################################################################
+
+def jsontocsv(Input_File,Output_File,Dataset_Name='NULL',header=1):
+    import json
+    import csv
+    with open(Input_File) as json_file:
+        data=json.load(json_file)
+    if Dataset_Name!='NULL':
+        data=data[Dataset_Name]
+    O_file=open(Output_File+'.csv','w')
+    csv_writer=csv.writer(O_file)
+    for d in data:
+        if header==1:
+            h=d.keys()
+            csv_writer.writerow(h)
+            header+=1
+        csv_writer.writerow(d.values())
+    O_file.close()
+
